@@ -28,7 +28,8 @@ RUN pnpm install --frozen-lockfile
 RUN pnpm --filter @task-forge/shared build
 RUN pnpm --filter @task-forge/backend build
 
-RUN pnpm --filter @task-forge/backend --prod deploy /prod
+# RUN pnpm --filter @task-forge/backend --prod deploy /prod
+RUN pnpm deploy --filter @task-forge/backend --prod /prod
 
 FROM base AS runner
 
