@@ -28,8 +28,7 @@ RUN pnpm install --frozen-lockfile
 RUN pnpm --filter @task-forge/shared build
 RUN pnpm --filter @task-forge/backend build
 
-# RUN pnpm --filter @task-forge/backend --prod deploy /prod
-RUN pnpm deploy --filter @task-forge/backend --prod /prod
+RUN pnpm --filter @task-forge/backend --prod deploy /prod
 
 FROM base AS runner
 
@@ -45,4 +44,6 @@ USER node
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "node node_modules/typeorm/cli.js migration:run -d dist/database/data-source.js && node dist/app.js"]
+# CMD ["sh", "-c", "node node_modules/typeorm/cli.js migration:run -d dist/database/data-source.js && node dist/app.js"]
+
+CMD ["node","dist/app.js"]
