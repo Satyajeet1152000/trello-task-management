@@ -12,6 +12,8 @@ WORKDIR /app
 
 FROM base AS builder
 
+ENV NODE_ENV=development
+
 # bcrypt and other native modules need build tooling on Alpine
 RUN apk add --no-cache python3 make g++
 
@@ -23,7 +25,7 @@ COPY packages/shared/src ./packages/shared/src
 COPY apps/backend/package.json apps/backend/tsconfig.json ./apps/backend/
 COPY apps/backend/src ./apps/backend/src
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --prod=false
 
 RUN pnpm --filter @task-forge/shared build
 RUN pnpm --filter @task-forge/backend build
